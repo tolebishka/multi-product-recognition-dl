@@ -1,0 +1,17 @@
+{
+  "apple": {"price_kzt": 800, "unit": "kg"},
+  "banana": {"price_kzt": 900, "unit": "kg"},
+  "orange": {"price_kzt": 1000, "unit": "kg"},
+  "strawberry": {"price_kzt": 2500, "unit": "kg"},
+  "bell_pepper": {"price_kzt": 1200, "unit": "kg"},
+  "kiwi": {"price_kzt": 2200, "unit": "kg"},
+  "lemon": {"price_kzt": 1200, "unit": "kg"},
+  "onion": {"price_kzt": 250, "unit": "kg"},
+  "potato": {"price_kzt": 300, "unit": "kg"},
+  "cucumber": {"price_kzt": 600, "unit": "kg"},
+  "mango": {"price_kzt": 2800, "unit": "kg"},
+  "grape": {"price_kzt": 1600, "unit": "kg"},
+  "garlic": {"price_kzt": 1800, "unit": "kg"},
+  "tomato": {"price_kzt": 700, "unit": "kg"},
+  "carrot": {"price_kzt": 300, "unit": "kg"}
+}

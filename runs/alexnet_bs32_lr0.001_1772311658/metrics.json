@@ -1,0 +1,111 @@
+{
+  "model": "alexnet",
+  "num_classes": 16,
+  "test_top1": 0.8680555555555556,
+  "test_top5": 1.0,
+  "macro_f1": 0.7412839637373614,
+  "weighted_f1": 0.8567071993882655,
+  "per_class": {
+    "apple": {
+      "precision": 0.7692307692307693,
+      "recall": 0.7692307692307693,
+      "f1-score": 0.7692307692307693,
+      "support": 13.0
+    },
+    "banana": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 13.0
+    },
+    "bell_pepper": {
+      "precision": 0.8787878787878788,
+      "recall": 1.0,
+      "f1-score": 0.9354838709677419,
+      "support": 29.0
+    },
+    "carrot": {
+      "precision": 0.8,
+      "recall": 1.0,
+      "f1-score": 0.8888888888888888,
+      "support": 16.0
+    },
+    "cucumber": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 29.0
+    },
+    "garlic": {
+      "precision": 0.4,
+      "recall": 0.5,
+      "f1-score": 0.4444444444444444,
+      "support": 4.0
+    },
+    "grape": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 4.0
+    },
+    "heic": {
+      "precision": 0.39285714285714285,
+      "recall": 0.34375,
+      "f1-score": 0.36666666666666664,
+      "support": 32.0
+    },
+    "kiwi": {
+      "precision": 0.3333333333333333,
+      "recall": 0.2,
+      "f1-score": 0.25,
+      "support": 5.0
+    },
+    "lemon": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 11.0
+    },
+    "mango": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 26.0
+    },
+    "onion": {
+      "precision": 0.25,
+      "recall": 0.2,
+      "f1-score": 0.2222222222222222,
+      "support": 5.0
+    },
+    "orange": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 12.0
+    },
+    "potato": {
+      "precision": 0.967741935483871,
+      "recall": 1.0,
+      "f1-score": 0.9836065573770492,
+      "support": 30.0
+    },
+    "strawberry": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 20.0
+    },
+    "tomato": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 39.0
+    }
+  },
+  "speed": {
+    "ms_per_image": 2.178565263748169,
+    "fps": 459.01769235020487
+  },
+  "model_size_mb": 217.70245361328125
+}

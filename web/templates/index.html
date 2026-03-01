@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Recognition Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f8faf8;
+            --bg-card: #ffffff;
+            --accent: #2d8a5e;
+            --accent-hover: #237a4d;
+            --accent-light: #e8f5ef;
+            --text-primary: #1a2e1f;
+            --text-secondary: #5a6b5d;
+            --border: #e2e8e4;
+            --shadow: 0 4px 20px rgba(45, 138, 94, 0.08);
+            --shadow-hover: 0 8px 30px rgba(45, 138, 94, 0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #f8faf8 0%, #eef5f1 50%, #f0f7f3 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 6px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 28px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        /* Upload zone */
+        .upload-zone {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-sm);
+            padding: 32px 24px;
+            text-align: center;
+            background: var(--accent-light);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-bottom: 20px;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--accent);
+            background: rgba(45, 138, 94, 0.06);
+        }
+
+        .upload-zone.has-file {
+            border-color: var(--accent);
+            background: rgba(45, 138, 94, 0.08);
+        }
+
+        .upload-zone input[type="file"] {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            opacity: 0.8;
+        }
+
+        .upload-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .upload-text strong {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .file-name {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Form inputs */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-of-type {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(45, 138, 94, 0.15);
+        }
+
+        .model-select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: border-color 0.2s;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a6b5d' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+
+        .model-select:hover {
+            border-color: var(--accent);
+        }
+
+        .model-select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(45, 138, 94, 0.15);
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(45, 138, 94, 0.35);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* Error message */
+        .alert {
+            padding: 16px 20px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        /* Results */
+        .results-card {
+            margin-top: 8px;
+        }
+
+        .predictions-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .predictions-table th,
+        .predictions-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .predictions-table th {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .predictions-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .predictions-table tr:hover td {
+            background: var(--accent-light);
+        }
+
+        .prob-bar {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 4px;
+            max-width: 120px;
+        }
+
+        .prob-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        /* Checkout */
+        .checkout-summary {
+            background: var(--accent-light);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .checkout-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 0.95rem;
+        }
+
+        .checkout-row:not(:last-child) {
+            border-bottom: 1px solid rgba(45, 138, 94, 0.15);
+        }
+
+        .checkout-total {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 12px;
+            padding-top: 16px;
+            border-top: 2px solid var(--accent);
+        }
+
+        .checkout-total .amount {
+            font-size: 1.6rem;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            background: #1a1a1a;
+            color: #fff;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            font-size: 0.95rem;
+            animation: toastIn 0.4s ease;
+            pointer-events: auto;
+        }
+
+        .toast.toast-error {
+            background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .toast-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .toast-close {
+            margin-left: 8px;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.8);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0 4px;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .toast-close:hover {
+            color: #fff;
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    {% set emoji_map = {
+        'apple': 'Product is - 🍎', 'banana': 'Product is - 🍌', 'bell_pepper': 'Product is - 🫑', 'carrot': 'Product is - 🥕',
+        'cucumber': 'Product is - 🥒', 'garlic': 'Product is - 🧄', 'grape': 'Product is - 🍇', 'heic': 'Product is - 📷',
+        'kiwi': 'Product is - 🥝', 'lemon': 'Product is - 🍋', 'mango': 'Product is - 🥭', 'onion': 'Product is - 🧅',
+        'orange': 'Product is - 🍊', 'potato': 'Product is - 🥔', 'strawberry': 'Product is - 🍓', 'tomato': 'Product is - 🍅'
+    } %}
+    {% set header_emoji = emoji_map.get(result.label, '🍎') if result is defined and result else '🍎' %}
+    <div class="container">
+        <header>
+            <div class="logo">{{ header_emoji }}</div>
+            <h1>Распознавание фруктов</h1>
+            <p class="subtitle">Загрузите фото - получите предсказание и расчёт стоимости</p>
+        </header>
+
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <div class="card">
+                <h3 class="card-title">Загрузка изображения</h3>
+                <label class="upload-zone" id="uploadZone" for="fileInput">
+                    <div class="upload-icon">📷</div>
+                    <div class="upload-text">
+                        <strong>Нажмите</strong> или перетащите файл сюда
+                    </div>
+                    <div class="upload-text" style="font-size: 0.85rem; margin-top: 4px;">
+                        JPG, JPEG или PNG
+                    </div>
+                    <div class="file-name" id="fileName"></div>
+                </label>
+                <input type="file" id="fileInput" name="file" accept=".jpg,.jpeg,.png" required>
+
+                {% if models %}
+                <div class="form-group">
+                    <label for="modelSelect">Модель распознавания</label>
+                    <select id="modelSelect" name="model_id" class="model-select">
+                        {% for m in models %}
+                        <option value="{{ m.id }}" {% if selected_model == m.id %}selected{% endif %}>{{ m.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="weight">Вес (кг)</label>
+                    <input type="number" id="weight" name="weight" step="0.1" value="1.0" min="0.1" placeholder="1.0">
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">
+                        🔍 Распознать
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                        Очистить
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        {% if error %}
+        <div class="toast-container" id="toastContainer">
+            <div class="toast toast-error" id="toast">
+                <span class="toast-icon">⚠️</span>
+                <span class="toast-message">{{ error }}</span>
+                <button type="button" class="toast-close" onclick="dismissToast()" aria-label="Закрыть">×</button>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if top3 %}
+        <div class="card results-card">
+            <h3 class="card-title">Топ-3 предсказания</h3>
+            <table class="predictions-table">
+                <thead>
+                    <tr>
+                        <th>Продукт</th>
+                        <th>Вероятность</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in top3 %}
+                    <tr>
+                        <td>{{ r.label }}</td>
+                        <td>
+                            {{ r.prob }}%
+                            <div class="prob-bar">
+                                <div class="prob-fill" data-prob="{{ r.prob }}"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        {% if result %}
+        <div class="card results-card">
+            <h3 class="card-title">Чек (лучшее совпадение)</h3>
+            <div class="checkout-summary">
+                <div class="checkout-row">
+                    <span>Продукт:</span>
+                    <strong>{{ result.label }}</strong>
+                </div>
+                <div class="checkout-row">
+                    <span>Уверенность:</span>
+                    <span>{{ result.prob }}%</span>
+                </div>
+                <div class="checkout-row">
+                    <span>Цена за кг:</span>
+                    <span>{{ result.price }} ₸</span>
+                </div>
+                <div class="checkout-row">
+                    <span>Вес:</span>
+                    <span>{{ result.weight }} кг</span>
+                </div>
+                <div class="checkout-total">
+                    Итого: <span class="amount">{{ result.total }} ₸</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const uploadZone = document.getElementById('uploadZone');
+        const fileName = document.getElementById('fileName');
+
+        fileInput.addEventListener('change', function() {
+            if (this.files.length) {
+                fileName.textContent = '📄 ' + this.files[0].name;
+                uploadZone.classList.add('has-file');
+            } else {
+                fileName.textContent = '';
+                uploadZone.classList.remove('has-file');
+            }
+        });
+
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.style.borderColor = 'var(--accent)';
+        });
+
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.style.borderColor = '';
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.style.borderColor = '';
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                fileInput.dispatchEvent(new Event('change'));
+            }
+        });
+
+        function resetForm() {
+            fileInput.value = '';
+            fileName.textContent = '';
+            uploadZone.classList.remove('has-file');
+            document.getElementById('weight').value = '1.0';
+            // Модель не сбрасываем — пользователь мог её специально выбрать
+        }
+
+        function dismissToast() {
+            const toast = document.getElementById('toast');
+            const container = document.getElementById('toastContainer');
+            if (toast && container) {
+                toast.style.animation = 'toastOut 0.3s ease forwards';
+                setTimeout(function() { container.remove(); }, 300);
+            }
+        }
+
+        // Авто-закрытие toast через 6 секунд
+        if (document.getElementById('toastContainer')) {
+            setTimeout(dismissToast, 6000);
+        }
+
+        document.querySelectorAll('.prob-fill').forEach(function(el) {
+            el.style.width = (el.dataset.prob || 0) + '%';
+        });
+    </script>
+</body>
+</html>

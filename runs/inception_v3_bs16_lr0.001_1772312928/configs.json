@@ -1,0 +1,31 @@
+{
+  "data": {
+    "data_dir": "data/splits",
+    "image_size": 299,
+    "batch_size": 16,
+    "num_workers": 2,
+    "pin_memory": false,
+    "train_split": "train",
+    "val_split": "val",
+    "test_split": "test"
+  },
+  "model": {
+    "name": "inception_v3",
+    "num_classes": 16,
+    "pretrained": true,
+    "freeze_backbone": true,
+    "dropout": 0.2
+  },
+  "args": {
+    "model": "inception_v3",
+    "epochs": 15,
+    "batch_size": 16,
+    "lr": 0.001,
+    "freeze_backbone": true,
+    "unfreeze_backbone": false,
+    "data_dir": "data/splits",
+    "runs_dir": "runs",
+    "seed": 42,
+    "patience": 4
+  }
+}

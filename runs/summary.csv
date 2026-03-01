@@ -1,0 +1,6 @@
+run,model,test_top1,test_top5,macro_f1,weighted_f1,ms_per_image,fps,model_size_mb
+vgg16_bs16_lr0.001_1772312269,vgg16,0.8993,1.0,0.8431,0.885,11.18,89.4,512.4
+resnet50_bs32_lr0.001_1772309302,resnet50,0.8889,1.0,0.7806,0.8769,6.72,148.9,89.8
+mobilenet_v3_large_bs32_lr0.001_1772310091,mobilenet_v3_large,0.875,1.0,0.7535,0.8633,5.19,192.8,16.1
+alexnet_bs32_lr0.001_1772311658,alexnet,0.8681,1.0,0.7413,0.8567,2.18,459.0,217.7
+inception_v3_bs16_lr0.001_1772312928,inception_v3,0.6562,0.941,0.556,0.6486,10.25,97.6,93.0

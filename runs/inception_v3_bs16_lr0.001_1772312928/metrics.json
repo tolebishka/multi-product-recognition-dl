@@ -1,0 +1,111 @@
+{
+  "model": "inception_v3",
+  "num_classes": 16,
+  "test_top1": 0.65625,
+  "test_top5": 0.9409722222222222,
+  "macro_f1": 0.5560467004698261,
+  "weighted_f1": 0.6486376757404086,
+  "per_class": {
+    "apple": {
+      "precision": 0.75,
+      "recall": 0.46153846153846156,
+      "f1-score": 0.5714285714285714,
+      "support": 13.0
+    },
+    "banana": {
+      "precision": 0.6666666666666666,
+      "recall": 0.6153846153846154,
+      "f1-score": 0.64,
+      "support": 13.0
+    },
+    "bell_pepper": {
+      "precision": 0.49056603773584906,
+      "recall": 0.896551724137931,
+      "f1-score": 0.6341463414634146,
+      "support": 29.0
+    },
+    "carrot": {
+      "precision": 0.9,
+      "recall": 0.5625,
+      "f1-score": 0.6923076923076923,
+      "support": 16.0
+    },
+    "cucumber": {
+      "precision": 1.0,
+      "recall": 0.7931034482758621,
+      "f1-score": 0.8846153846153846,
+      "support": 29.0
+    },
+    "garlic": {
+      "precision": 0.3333333333333333,
+      "recall": 0.25,
+      "f1-score": 0.2857142857142857,
+      "support": 4.0
+    },
+    "grape": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 4.0
+    },
+    "heic": {
+      "precision": 0.5238095238095238,
+      "recall": 0.34375,
+      "f1-score": 0.41509433962264153,
+      "support": 32.0
+    },
+    "kiwi": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 5.0
+    },
+    "lemon": {
+      "precision": 1.0,
+      "recall": 0.45454545454545453,
+      "f1-score": 0.625,
+      "support": 11.0
+    },
+    "mango": {
+      "precision": 1.0,
+      "recall": 0.8076923076923077,
+      "f1-score": 0.8936170212765957,
+      "support": 26.0
+    },
+    "onion": {
+      "precision": 0.375,
+      "recall": 0.6,
+      "f1-score": 0.46153846153846156,
+      "support": 5.0
+    },
+    "orange": {
+      "precision": 0.6875,
+      "recall": 0.9166666666666666,
+      "f1-score": 0.7857142857142857,
+      "support": 12.0
+    },
+    "potato": {
+      "precision": 0.4090909090909091,
+      "recall": 0.6,
+      "f1-score": 0.4864864864864865,
+      "support": 30.0
+    },
+    "strawberry": {
+      "precision": 0.75,
+      "recall": 0.75,
+      "f1-score": 0.75,
+      "support": 20.0
+    },
+    "tomato": {
+      "precision": 0.7272727272727273,
+      "recall": 0.8205128205128205,
+      "f1-score": 0.7710843373493976,
+      "support": 39.0
+    }
+  },
+  "speed": {
+    "ms_per_image": 10.25009036064148,
+    "fps": 97.56011555174399
+  },
+  "model_size_mb": 93.0341796875
+}
